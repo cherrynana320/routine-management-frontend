@@ -1,24 +1,25 @@
 import React from 'react';
-import { Layout } from 'antd';
-import WeekView from './components/WeekView';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import MainLayout from './layouts/MainLayout';
 
-const { Content } = Layout;
-
+// 이 파일에서는 기본적인 라우터를 설정하고 라우팅을 관리
 function App() {
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Content
-        style={{
-          padding: 24,
-          margin: 0,
-          minHeight: 280,
-        }}
-        className="site-layout-background"
-      >
-        <WeekView />
-      </Content>
-    </Layout>
+    <Router>
+      <Routes>
+        <Route element={<Navigate to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        {/* 기본적으로 /login으로 리다이렉트 */}
+      </Routes>
+    </Router>
   );
 }
 
