@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Tabs, Card, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Tabs, Card, Button, Modal } from 'antd';
+import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
 
 const { TabPane } = Tabs;
 
@@ -23,12 +23,15 @@ const TabsContent = () => {
   ]);
 
   const onChange = (key) => {
-    setActiveKey(key);
+    if (key !== 'add') {
+      setActiveKey(key);
+    }
   };
 
   const add = () => {
     const newKey = `newTab${panes.length + 1}`;
-    setPanes([...panes, { title: newKey, key: newKey }]);
+    const newPanes = [...panes, { title: newKey, key: newKey }];
+    setPanes(newPanes);
     setActiveKey(newKey);
   };
 
@@ -52,40 +55,53 @@ const TabsContent = () => {
     setActiveKey(newActiveKey);
   };
 
-  const onEdit = (targetKey, action) => {
-    if (action === 'add') {
-      add();
-    } else {
-      remove(targetKey);
-    }
+  const showDeleteConfirm = (targetKey) => {
+    Modal.confirm({
+      title: '탭 삭제',
+      content: '정말 이 탭을 삭제하시겠습니까?',
+      okText: '예',
+      cancelText: '아니오',
+      onOk: () => remove(targetKey),
+      centered: true,
+    });
   };
 
   return (
     <Tabs
-      type="editable-card"
+      type="line"
       activeKey={activeKey}
       onChange={onChange}
-      onEdit={onEdit}
-      tabBarExtraContent={<Button icon={<PlusOutlined />} onClick={add} />}
+      tabBarStyle={{ backgroundColor: '#ffffff', paddingLeft: '10px' }}
       style={{
         flex: 1,
         display: 'flex',
+        flexDirection: 'column',
         borderRadius: '0px 0px 8px 0px',
         backgroundColor: '#E9F3FF',
-        '.ant-tabs-nav': {
-          backgroundColor: '#E9F3FF',
-        },
-        '.ant-tabs-tab-active': {
-          backgroundColor: '#E9F3FF',
-        },
       }}
     >
       {panes.map((pane) => (
         <TabPane
-          tab={pane.title}
+          tab={
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              {pane.title}
+              {pane.key !== 'calming' && (
+                <CloseOutlined
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    showDeleteConfirm(pane.key);
+                  }}
+                  style={{ marginLeft: '8px' }}
+                />
+              )}
+            </span>
+          }
           key={pane.key}
-          closable={pane.key !== 'calming'}
-          style={{ backgroundColor: '#E9F3FF' }}
+          closable={false}
+          style={{
+            backgroundColor: activeKey === pane.key ? '#E9F3FF' : '#ffffff',
+            flex: 1,
+          }}
         >
           <div
             style={{
@@ -93,7 +109,6 @@ const TabsContent = () => {
               flexWrap: 'wrap',
               gap: '20px',
               marginLeft: '20px',
-              backgroundColor: '#E9F3FF',
             }}
           >
             {(items[pane.key] || []).map((item, index) => (
@@ -108,6 +123,18 @@ const TabsContent = () => {
           </div>
         </TabPane>
       ))}
+      <TabPane
+        tab={
+          <Button
+            icon={<PlusOutlined />}
+            onClick={add}
+            style={{ border: 'none', background: 'transparent' }}
+          />
+        }
+        key="add"
+        closable={false}
+        disabled
+      />
     </Tabs>
   );
 };
