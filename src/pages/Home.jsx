@@ -12,7 +12,13 @@ const Home = () => {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh', backgroundColor: '#F5F5F5' }}>
+    <Layout
+      style={{
+        minHeight: '100vh',
+        backgroundColor: '#F5F5F5',
+        display: 'flex',
+      }}
+    >
       <AppHeader />
       <Layout
         style={{
@@ -24,7 +30,6 @@ const Home = () => {
         <Layout
           style={{
             flex: 1,
-            display: 'flex',
             flexDirection: 'column',
             marginBottom: '50px',
             marginRight: '150px',
@@ -38,9 +43,8 @@ const Home = () => {
             <div
               style={{
                 backgroundColor: '#ffffff',
-                padding: '40px',
+                padding: '30px',
                 borderRadius: '8px',
-                marginBottom: '20px',
               }}
             >
               <h1>Home</h1>
@@ -50,9 +54,8 @@ const Home = () => {
               <div
                 style={{
                   backgroundColor: '#ffffff',
-                  padding: '40px',
+                  padding: '30px',
                   borderRadius: '8px',
-                  marginBottom: '20px',
                 }}
               >
                 <h1>Hi Lina! 2024</h1>

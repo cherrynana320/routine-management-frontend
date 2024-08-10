@@ -15,7 +15,7 @@ const AppHeader = () => (
       boxShadow: '0 -4px 15px rgba(0, 0, 0, 0.3)', // 그림자를 위쪽으로
     }}
   >
-    <div style={{ color: '#fff', fontSize: '20px' }}>Routine Management</div>
+    <div style={{ color: '#fff', fontSize: '15px' }}>Routine Management</div>
   </Header>
 );
 
