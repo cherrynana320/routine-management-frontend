@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { Tabs, Card, Button, Modal } from 'antd';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
+import imageFile from '../assets/torriden.png';
+import ItemCard from './ItemCard';
 
 const { TabPane } = Tabs;
 
 const items = {
-  calming: ['Item 1', 'Item 2', 'Item 3'],
-  anti: ['Item 4', 'Item 5', 'Item 6'],
-  hydrate: ['Item 7', 'Item 8', 'Item 9'],
-  massage: ['Item 10', 'Item 11', 'Item 12'],
-  device: ['Item 13', 'Item 14', 'Item 15'],
+  calming: [
+    {
+      brand: 'Torriden',
+      name: '다이브인 저분자 히알루론산 세럼',
+      image: imageFile,
+    },
+    // 추가 아이템들...
+  ],
+  // 다른 카테고리도 동일하게 설정...
 };
 
 const TabsContent = () => {
@@ -112,17 +118,45 @@ const TabsContent = () => {
             }}
           >
             {(items[pane.key] || []).map((item, index) => (
-              <Card
+              <ItemCard
                 key={index}
-                title={item}
-                style={{ width: 200, borderRadius: '8px' }}
-              >
-                {item}
-              </Card>
+                image={item.image}
+                brand={item.brand}
+                name={item.name}
+                onAddClick={() => console.log(`${item.name}`)}
+              />
             ))}
+            {/* 아이템 추가용 + 버튼 */}
+            <Card
+              style={{
+                width: 200,
+                borderRadius: '8px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#f0f0f0', // 버튼 카드 배경색
+              }}
+            >
+              <Button
+                type="dashed"
+                icon={<PlusOutlined />}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100%',
+                  width: '100%',
+                  border: 'none',
+                  background: 'transparent',
+                  fontSize: '24px',
+                }}
+                onClick={() => console.log('add item')}
+              />
+            </Card>
           </div>
         </TabPane>
       ))}
+      {/* 원래 탭 추가 + 버튼 */}
       <TabPane
         tab={
           <Button
