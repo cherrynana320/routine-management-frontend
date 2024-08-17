@@ -3,6 +3,7 @@ import { Tabs, Card, Button, Modal } from 'antd';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
 import imageFile from '../assets/torriden.png';
 import ItemCard from './ItemCard';
+import ProductRegister from './ProductRegister';
 
 const { TabPane } = Tabs;
 
@@ -27,6 +28,8 @@ const TabsContent = () => {
     { title: 'massage', key: 'massage' },
     { title: 'device', key: 'device' },
   ]);
+
+  const [openRegister, setOpenRegister] = useState(false);
 
   const onChange = (key) => {
     if (key !== 'add') {
@@ -70,6 +73,15 @@ const TabsContent = () => {
       onOk: () => remove(targetKey),
       centered: true,
     });
+  };
+
+  // 등록 팝업 열림 여부
+  const handleOpenRegister = () => {
+    setOpenRegister(true);
+  };
+
+  const handleCloseRegister = () => {
+    setOpenRegister(false);
   };
 
   return (
@@ -134,7 +146,7 @@ const TabsContent = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: '#f0f0f0', // 버튼 카드 배경색
+                backgroundColor: '#ffffff', // 버튼 카드 배경색
               }}
             >
               <Button
@@ -150,13 +162,16 @@ const TabsContent = () => {
                   background: 'transparent',
                   fontSize: '24px',
                 }}
-                onClick={() => console.log('add item')}
+                onClick={handleOpenRegister}
               />
             </Card>
+            {openRegister && (
+              <ProductRegister onCloseRegister={handleCloseRegister} />
+            )}
           </div>
         </TabPane>
       ))}
-      {/* 원래 탭 추가 + 버튼 */}
+
       <TabPane
         tab={
           <Button

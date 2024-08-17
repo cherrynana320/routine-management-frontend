@@ -1,0 +1,384 @@
+.ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::before {
+  display: none;
+}
+.ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::after {
+  display: inline-block;
+  margin-inline-end: 4px;
+  color: #ff4d4f;
+  font-size: 14px;
+  line-height: 1;
+  content: '*';
+}
+
+.ant-form-horizontal .ant-form-item {
+  margin-bottom: 0;
+}
+
+.ant-form-horizontal
+  > .ant-row
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-control,
+.ant-form-horizontal
+  > .ant-row
+  > .ant-col
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-control,
+.ant-form-horizontal
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-control,
+.ant-form-horizontal
+  > .fragment
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-control {
+  padding: 5px;
+  justify-content: center;
+}
+.ant-form-horizontal .ant-row > .ant-col > .ant-form-item,
+.ant-form-horizontal .ant-row > .ant-col > .ant-form-item > .ant-row {
+  height: 100%;
+}
+
+.ant-form-horizontal > .ant-form-item > .ant-row,
+.ant-form-horizontal > .ant-row,
+.ant-form-horizontal > .fragment > .ant-form-item > .ant-row {
+  border-top: 1px solid lightgray;
+}
+
+/* .ant-form-horizontal > .ant-form-item > .ant-row:last-child,
+.ant-form-horizontal > .ant-row:last-child {
+    border-bottom: 1px solid lightgray;
+
+} */
+
+.ant-form-horizontal > .ant-form-item:last-child > .ant-row,
+.ant-form-horizontal > .ant-row:last-child {
+  border-bottom: 1px solid lightgray;
+}
+
+.ant-form-horizontal .ant-form-item .ant-row .ant-col.ant-form-item-label {
+  background-color: #fafafa;
+  text-align: start;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* .ant-form-horizontal .ant-form-item .ant-row .ant-col.ant-form-item-control {
+    padding: 2px;
+    justify-content: center;
+} */
+
+.ant-form-horizontal
+  .ant-form-item
+  .ant-row
+  .ant-col.ant-form-item-label
+  > label {
+  /* height: 40px; */
+}
+
+.ant-form-horizontal
+  .ant-form-item
+  .ant-row
+  .ant-col.ant-form-item-label
+  > label::after {
+  content: '';
+}
+
+.ant-form-horizontal
+  .ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::after {
+  content: '*';
+}
+
+.ant-form-horizontal .row-has-3cols > .ant-col {
+  display: block;
+  flex: 0 0 33%;
+  max-width: 33%;
+}
+
+.ant-form-horizontal
+  .row-has-3cols
+  > .ant-col
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-label {
+  flex: 0 0 50.48%;
+  max-width: 50.48%;
+}
+
+.ant-form-horizontal .row-has-2cols > .ant-col {
+  display: block;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.ant-form-horizontal .border-bottom {
+  border-bottom: 1px solid lightgray;
+}
+
+.ant-form-horizontal .ant-row.row-title {
+  background-color: #fafafa;
+  padding-left: 16px;
+  height: 47px;
+  align-items: center;
+}
+
+.ant-form-horizontal
+  .ant-form-item.form-cascade
+  > .ant-row
+  > .ant-form-item-label {
+  border-right: 1px solid #fafafa;
+}
+
+.ant-form-horizontal
+  .ant-form-item.form-status-checkbox
+  .ant-row.form-status-checkbox-row {
+  /* .ant-form-horizontal .ant-form-item.form-status-checkbox > .ant-row > .ant-col.ant-form-item-control > .ant-form-item-control-input > .ant-form-item-control-input-content >.ant-row { */
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.ant-form-horizontal
+  .ant-form-item.form-status-checkbox
+  .ant-row.form-status-checkbox-row
+  .form-status-checkbox-form-item {
+  flex: 1;
+}
+
+.ant-form-horizontal .ant-checkbox-group.form-multi-line {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 150px;
+}
+
+.ant-form-horizontal .ant-checkbox-group.form-multi-line > .ant-row {
+  height: 22px;
+}
+
+.ant-form-horizontal .ant-checkbox-group.form-multi-line > .ant-row > .ant-col {
+  height: 100%;
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.form-cascade > .ant-col.ant-form-item-control {
+  padding-left: 0;
+}
+.form-cascade
+  > .ant-col.ant-form-item-control
+  .ant-form-item-control-input-content
+  .ant-row
+  .ant-col {
+  padding-left: 0;
+}
+.form-cascade
+  > .ant-col.ant-form-item-control
+  .ant-form-item-control-input-content
+  .ant-row
+  .ant-col
+  label {
+  padding-left: 16px;
+}
+
+.form-cascade > .ant-row > .ant-form-item-control {
+  padding: 0 !important;
+}
+
+.ant-form-item.control-padding-5 .ant-col.ant-form-item-control {
+  padding: 5px;
+}
+
+.ant-form-horizontal
+  .row-has-2cols
+  > .ant-col
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-label {
+  flex: 0 0 33.33%;
+  max-width: 33.33%;
+}
+
+.ant-form-horizontal .row-has-1cols > .ant-form-item,
+.ant-form-horizontal .row-has-1cols > .ant-col {
+  display: block;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.ant-form-horizontal
+  .row-has-1cols
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-label,
+.ant-form-horizontal
+  .row-has-1cols
+  > .ant-col
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-label {
+  flex: 0 0 16.66%;
+  max-width: 16.66%;
+}
+
+.ant-form-horizontal input:read-only,
+.ant-form-horizontal textarea:read-only {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  resize: none;
+}
+
+.ant-form-horizontal input:disabled {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.ant-form-horizontal .button-area {
+  border: none !important;
+  justify-content: flex-end;
+  margin: 10px 0;
+}
+
+.ant-form-horizontal .ant-form-item-control-input-content > .ant-row {
+  align-items: center;
+}
+
+/*  */
+/* for vertical */
+/*  */
+
+.ant-form.ant-form-vertical {
+  position: relative;
+  /* border: 1px solid #F0F0F0; */
+  /* padding: 10px 0px; */
+  background-color: #fff;
+}
+
+.ant-form.ant-form-vertical > .ant-row {
+  gap: 50px;
+  padding: 10px 0;
+}
+
+.ant-form-vertical .ant-row .ant-col .ant-form-item {
+  margin-bottom: 0;
+}
+
+.ant-form.ant-form-vertical .button-area {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+
+  display: flex;
+  gap: 10px;
+}
+
+.ant-form-vertical .row-has-3cols > .ant-col {
+  display: block;
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.ant-form-vertical
+  .row-has-3cols
+  > .ant-col
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-label {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.ant-form-vertical .row-has-2cols > .ant-col {
+  display: block;
+  flex: 0 0 33.33%;
+  max-width: 33.33%;
+}
+
+.ant-form-vertical
+  .row-has-2cols
+  > .ant-col
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-label {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.ant-form-vertical .row-has-1cols > .ant-form-item,
+.ant-form-vertical .row-has-1cols > .ant-col {
+  display: block;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.ant-form-vertical
+  .row-has-1cols
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-label,
+.ant-form-vertical
+  .row-has-1cols
+  > .ant-col
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-label {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.ant-form-vertical
+  .ant-row
+  > .ant-col
+  > .ant-form-item
+  > .ant-row
+  > .ant-col.ant-form-item-label {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.ant-form-vertical
+  .ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::after {
+  content: '*';
+  visibility: visible;
+}
+
+.label-strong .ant-form-item-label label {
+  font-weight: 600;
+}
+
+.fragment > .ant-form-item.label-strong .ant-form-item-label {
+  padding: 5px;
+}
+
+.recog-form.ant-form-horizontal
+  .ant-form-item
+  .ant-row
+  .ant-col.ant-form-item-label {
+  background-color: #fafafa;
+}
+
+.recog-form.ant-form-horizontal
+  > .fragment:last-child
+  > .ant-form-item:last-child
+  > .ant-row {
+  border-bottom: 1px solid lightgray;
+}
