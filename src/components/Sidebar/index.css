@@ -1,0 +1,25 @@
+.sidebar {
+  border-radius: 0 0 0 8px;
+  margin-left: 150px;
+  margin-bottom: 50px;
+  box-shadow: -8px 4px 15px rgba(0, 0, 0, 0.3); /* 왼쪽과 아래에만 그림자 보이게 */
+  overflow: hidden;
+  background-color: #fff; /* 배경색 추가 */
+}
+
+.menu {
+  height: 100%;
+  text-align: center;
+  padding: 15px;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px; /* 수직 간격을 넓히기 위해 추가 */
+}
+
+.icon {
+  font-size: 20px; /* 아이콘 크기 20px로 설정 */
+}

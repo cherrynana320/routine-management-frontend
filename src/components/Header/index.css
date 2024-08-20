@@ -1,0 +1,14 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  background-color: #176bff;
+  padding: 0 20px;
+  border-radius: 8px 8px 0 0;
+  margin: 50px 150px 0 150px;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3); /* 그림자를 위쪽으로 */
+}
+
+.header-title {
+  color: #fff;
+  font-size: 15px;
+}

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Tabs, Card, Button, Modal } from 'antd';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
-import imageFile from '../assets/torriden.png';
-import ItemCard from './ItemCard';
-import ProductRegister from './ProductRegister';
+import imageFile from '/src/assets/torriden.png';
+import ItemCard from '../../../components/ItemCard';
+import ProductRegister from '../Create/ProductRegister';
+import SearchBox from '../../../components/SearchBox';
 
 const { TabPane } = Tabs;
 
@@ -124,6 +125,16 @@ const TabsContent = () => {
           <div
             style={{
               display: 'flex',
+              justifyContent: 'flex-end', // SearchBox를 오른쪽 끝으로 배치
+              marginBottom: '20px', // SearchBox 아래에 여백 추가
+              marginRight: '20px',
+            }}
+          >
+            <SearchBox />
+          </div>
+          <div
+            style={{
+              display: 'flex',
               flexWrap: 'wrap',
               gap: '20px',
               marginLeft: '20px',
@@ -138,7 +149,7 @@ const TabsContent = () => {
                 onAddClick={() => console.log(`${item.name}`)}
               />
             ))}
-            {/* 아이템 추가용 + 버튼 */}
+
             <Card
               style={{
                 width: 200,

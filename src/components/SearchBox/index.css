@@ -1,0 +1,33 @@
+.search-container {
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  max-width: 400px;
+  height: 50px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  border-radius: 30px;
+  height: 50px;
+}
+
+.search-input .ant-input-prefix {
+  margin-right: 10px; /* 돋보기 아이콘과 텍스트 사이의 간격 */
+}
+
+.search-input .ant-input-suffix {
+  margin-left: 8px; /* 텍스트와 X 버튼 사이의 간격 */
+}
+
+.clear-button {
+  background: transparent;
+  border: none;
+}
+
+.clear-button:hover {
+  background: rgba(0, 0, 0, 0.05); /* 호버 시 배경색 */
+}
