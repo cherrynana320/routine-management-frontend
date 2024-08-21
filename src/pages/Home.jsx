@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import MainLayout from '../layouts/MainLayout';
-import TabsContent from '../routes/Home/Manage/TabsContent';
-import SearchBox from '../components/SearchBox';
+import TabsContent from '../routes/Inventory/Manage/TabsContent';
 
 const Home = () => {
   const [selectedMenu, setSelectedMenu] = useState('home');
@@ -32,10 +31,6 @@ const Home = () => {
             }}
           >
             <h1>Hi Lina! 2024</h1>
-            <p>
-              This is a new section added between the header and the tabs
-              content.
-            </p>
           </div>
           <TabsContent />
         </>

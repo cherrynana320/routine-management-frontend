@@ -1,9 +1,8 @@
-// src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import '/src/styles/global.css'; // 글로벌 스타일을 import 합니다.
+import '/src/styles/global.css';
 
 const App = () => (
   <Router>

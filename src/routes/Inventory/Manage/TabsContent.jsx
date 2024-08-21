@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Card, Button, Modal } from 'antd';
+import { Tabs, Card, Button, Modal, Input } from 'antd';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
 import imageFile from '/src/assets/torriden.png';
 import ItemCard from '../../../components/ItemCard';
@@ -15,21 +15,38 @@ const items = {
       name: '다이브인 저분자 히알루론산 세럼',
       image: imageFile,
     },
-    // 추가 아이템들...
+    {
+      brand: 'Torriden',
+      name: '다이브인 저분자 히알루론산 세럼',
+      image: imageFile,
+    },
+    {
+      brand: 'Torriden',
+      name: '다이브인 저분자 히알루론산 세럼',
+      image: imageFile,
+    },
+    {
+      brand: 'Torriden',
+      name: '다이브인 저분자 히알루론산 세럼',
+      image: imageFile,
+    },
+    // 추가 아이템들
   ],
-  // 다른 카테고리도 동일하게 설정...
+  // 다른 카테고리
 };
 
 const TabsContent = () => {
   const [activeKey, setActiveKey] = useState('calming');
   const [panes, setPanes] = useState([
-    { title: 'calming', key: 'calming' },
-    { title: 'anti', key: 'anti' },
+    { title: '진정', key: 'calming' },
+    { title: '안티에이징', key: 'anti' },
     { title: 'hydrate', key: 'hydrate' },
     { title: 'massage', key: 'massage' },
     { title: 'device', key: 'device' },
   ]);
 
+  // 편집 중인 탭의 key를 저장하는 상태
+  const [editingKey, setEditingKey] = useState('');
   const [openRegister, setOpenRegister] = useState(false);
 
   const onChange = (key) => {
@@ -76,7 +93,6 @@ const TabsContent = () => {
     });
   };
 
-  // 등록 팝업 열림 여부
   const handleOpenRegister = () => {
     setOpenRegister(true);
   };
@@ -85,12 +101,29 @@ const TabsContent = () => {
     setOpenRegister(false);
   };
 
+  const handleDoubleClick = (key) => {
+    setEditingKey(key);
+  };
+
+  const handleTitleChange = (e, key) => {
+    const newTitle = e.target.value;
+    setPanes((prevPanes) =>
+      prevPanes.map((pane) =>
+        pane.key === key ? { ...pane, title: newTitle } : pane
+      )
+    );
+  };
+
+  const handleBlur = () => {
+    setEditingKey(''); // 편집 모드 종료
+  };
+
   return (
     <Tabs
       type="line"
       activeKey={activeKey}
       onChange={onChange}
-      tabBarStyle={{ backgroundColor: '#ffffff', paddingLeft: '10px' }}
+      tabBarStyle={{ backgroundColor: '#ffffff', paddingLeft: '15px' }}
       style={{
         flex: 1,
         display: 'flex',
@@ -102,17 +135,36 @@ const TabsContent = () => {
       {panes.map((pane) => (
         <TabPane
           tab={
-            <span style={{ display: 'flex', alignItems: 'center' }}>
-              {pane.title}
-              {pane.key !== 'calming' && (
-                <CloseOutlined
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    showDeleteConfirm(pane.key);
-                  }}
-                  style={{ marginLeft: '8px' }}
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                fontSize: '14px',
+              }}
+              onDoubleClick={() => handleDoubleClick(pane.key)}
+            >
+              {editingKey === pane.key ? (
+                <Input
+                  value={pane.title}
+                  onChange={(e) => handleTitleChange(e, pane.key)}
+                  onBlur={handleBlur}
+                  autoFocus
+                  size="small"
+                  style={{ marginRight: '12px', width: '100px' }}
                 />
+              ) : (
+                pane.title
               )}
+              <CloseOutlined
+                onClick={(e) => {
+                  e.stopPropagation();
+                  showDeleteConfirm(pane.key);
+                }}
+                style={{
+                  marginLeft: '12px',
+                  fontSize: '12px',
+                }}
+              />
             </span>
           }
           key={pane.key}
@@ -152,23 +204,19 @@ const TabsContent = () => {
 
             <Card
               style={{
-                width: 200,
+                width: 180,
+                height: 240,
                 borderRadius: '8px',
                 display: 'flex',
+                boxShadow: ' 0 4px 8px rgba(0, 0, 0, 0.1)',
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: '#ffffff', // 버튼 카드 배경색
               }}
             >
               <Button
-                type="dashed"
                 icon={<PlusOutlined />}
                 style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100%',
-                  width: '100%',
                   border: 'none',
                   background: 'transparent',
                   fontSize: '24px',
