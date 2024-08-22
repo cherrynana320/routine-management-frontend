@@ -35,7 +35,7 @@ const items = {
   // 다른 카테고리
 };
 
-const TabsContent = () => {
+const InventoryTab = () => {
   const [activeKey, setActiveKey] = useState('calming');
   const [panes, setPanes] = useState([
     { title: '진정', key: 'calming' },
@@ -247,4 +247,4 @@ const TabsContent = () => {
   );
 };
 
-export default TabsContent;
+export default InventoryTab;

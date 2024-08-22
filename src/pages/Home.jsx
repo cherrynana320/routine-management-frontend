@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MainLayout from '../layouts/MainLayout';
-import TabsContent from '../routes/Inventory/Manage/TabsContent';
+import TabsContent from '../routes/Inventory/Tabs';
+import HomeTab from '../routes/Home/Tabs';
 
 const Home = () => {
   const [selectedMenu, setSelectedMenu] = useState('home');
@@ -12,15 +13,18 @@ const Home = () => {
   return (
     <MainLayout selectedMenu={selectedMenu} onMenuSelect={handleMenuSelect}>
       {selectedMenu === 'home' ? (
-        <div
-          style={{
-            backgroundColor: '#ffffff',
-            padding: '30px',
-            borderRadius: '8px',
-          }}
-        >
-          <h1>Home</h1>
-        </div>
+        <>
+          <div
+            style={{
+              backgroundColor: '#ffffff',
+              padding: '30px',
+              borderRadius: '8px',
+            }}
+          >
+            <h1>Home</h1>
+          </div>
+          <HomeTab />
+        </>
       ) : selectedMenu === 'items' ? (
         <>
           <div
