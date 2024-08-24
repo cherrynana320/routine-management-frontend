@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MainLayout from '../layouts/MainLayout';
-import TabsContent from '../routes/Inventory/Tabs';
-import HomeTab from '../routes/Home/Tabs';
+import HomeTab from './../routes/Home/Tabs/index';
+import InventoryTab from './../routes/Inventory/Tabs/index';
 
 const Home = () => {
   const [selectedMenu, setSelectedMenu] = useState('home');
@@ -36,7 +36,7 @@ const Home = () => {
           >
             <h1>Hi Lina! 2024</h1>
           </div>
-          <TabsContent />
+          <InventoryTab />
         </>
       ) : null}
     </MainLayout>

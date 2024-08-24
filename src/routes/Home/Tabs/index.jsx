@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Tabs, Card, Button, Modal, Input } from 'antd';
+import { Tabs, Button, Modal, Input } from 'antd';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
-import SearchBox from '../../../components/SearchBox';
+import TimelapseCard from '../../../components/TimelapseCard';
+import imageFile from '/src/assets/photo.jpg';
 
 const { TabPane } = Tabs;
 
@@ -12,16 +13,38 @@ const HomeTab = () => {
       title: '진정',
       key: 'calming',
       groups: [
-        { title: '토리든', key: 'toriden', cards: [] },
-        { title: '자작나무', key: 'birch', cards: [] },
-      ],
-    },
-    {
-      title: '안티에이징',
-      key: 'anti',
-      groups: [
-        { title: '피지오겔', key: 'physiogel', cards: [] },
-        { title: '에이시카', key: 'acica', cards: [] },
+        {
+          title: '토리든',
+          key: 'toriden',
+          cards: [
+            {
+              image: imageFile,
+              date: '2024-08-01',
+              details: '피부가 좀 더 촉촉해졌어요.',
+            },
+            {
+              image: imageFile,
+              date: '2024-08-02',
+              details: '오늘은 피부가 많이 진정됐어요.',
+            },
+          ],
+        },
+        {
+          title: '자작나무',
+          key: 'birch',
+          cards: [
+            {
+              image: imageFile,
+              date: '2024-08-01',
+              details: '사용 후 피부가 시원해졌어요.',
+            },
+            {
+              image: imageFile,
+              date: '2024-08-02',
+              details: '피부톤이 밝아졌어요.',
+            },
+          ],
+        },
       ],
     },
   ]);
@@ -236,7 +259,31 @@ const HomeTab = () => {
                   minWidth: '300px', // 최소 너비 설정
                 }}
               >
-                <h3>{group.title}</h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <h3>{group.title}</h3>
+                  <Button
+                    icon={<PlusOutlined />}
+                    onClick={() =>
+                      addCardToGroup(pane.key, group.key, {
+                        image: imageFile,
+                        date: '2024-08-03',
+                        details: '새 카드',
+                      })
+                    }
+                    style={{
+                      marginLeft: '10px',
+                      fontSize: '12px',
+                      height: 'auto',
+                      lineHeight: '16px',
+                    }}
+                  />
+                </div>
                 <div
                   style={{
                     display: 'flex',
@@ -245,34 +292,17 @@ const HomeTab = () => {
                   }}
                 >
                   {group.cards.map((card, index) => (
-                    <Card key={index} style={{ width: '100%' }}>
-                      {card}
-                      <Button
-                        type="link"
-                        onClick={() =>
-                          removeCardFromGroup(pane.key, group.key, index)
-                        }
-                        icon={<CloseOutlined />}
-                      />
-                    </Card>
+                    <TimelapseCard
+                      key={index}
+                      cardIndex={index}
+                      image={card.image}
+                      date={card.date}
+                      details={card.details}
+                      removeCardFromGroup={removeCardFromGroup} // 수정된 부분
+                      paneKey={pane.key}
+                      groupKey={group.key}
+                    />
                   ))}
-                  <Button
-                    icon={<PlusOutlined />}
-                    onClick={() =>
-                      addCardToGroup(pane.key, group.key, 'New Card')
-                    }
-                    style={{
-                      width: '100%',
-                      height: 120,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      border: '1px dashed #ccc',
-                      backgroundColor: '#f5f5f5',
-                    }}
-                  >
-                    Add Card
-                  </Button>
                 </div>
               </div>
             ))}

@@ -1,5 +1,5 @@
 /* src/components/ItemCard/index.css */
-.card {
+.item-card {
   width: 170px;
   height: 240px;
   border-radius: 8px;
@@ -11,7 +11,7 @@
   justify-content: center;
 }
 
-.imageContainer {
+.item-imageContainer {
   height: 130px;
   width: 130px;
   display: flex;
@@ -23,19 +23,19 @@
   overflow: hidden; /* 이미지가 컨테이너를 벗어나지 않도록 */
 }
 
-.image {
+.item-image {
   max-height: 100%; /* 이미지가 컨테이너 높이를 넘지 않도록 */
   max-width: 100%; /* 이미지가 컨테이너 너비를 넘지 않도록 */
   object-fit: contain; /* 이미지 비율 유지하면서 컨테이너에 맞추기 */
 }
 
-.brand {
+.item-brand {
   color: #a0a0a0;
   font-size: 12px;
   margin-bottom: 8px;
 }
 
-.name {
+.item-name {
   color: #000000;
   font-size: 12px;
 }
