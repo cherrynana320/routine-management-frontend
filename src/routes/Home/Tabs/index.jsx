@@ -3,6 +3,7 @@ import { Tabs, Button, Modal, Input } from 'antd';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
 import TimelapseCard from '../../../components/TimelapseCard';
 import imageFile from '/src/assets/photo.jpg';
+import GroupCreate from '../Create/GroupCreate';
 
 const { TabPane } = Tabs;
 
@@ -279,8 +280,6 @@ const HomeTab = () => {
                     style={{
                       marginLeft: '10px',
                       fontSize: '12px',
-                      height: 'auto',
-                      lineHeight: '16px',
                     }}
                   />
                 </div>
@@ -307,12 +306,18 @@ const HomeTab = () => {
               </div>
             ))}
             <Button
-              onClick={() => addGroup(pane.key)}
+              onClick={handleOpenRegister}
               icon={<PlusOutlined />}
               style={{ marginTop: '10px' }}
             >
               Add Group
             </Button>
+            {openRegister && (
+              <GroupCreate
+                onCloseRegister={handleCloseRegister}
+                onFinish={addGroup}
+              />
+            )}
           </div>
         </TabPane>
       ))}
