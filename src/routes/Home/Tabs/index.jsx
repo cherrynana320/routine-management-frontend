@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Button, Modal, Input } from 'antd';
+import { Tabs, Button, Input, Modal } from 'antd';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
 import TimelapseCard from '../../../components/TimelapseCard';
 import imageFile from '/src/assets/photo.jpg';
@@ -7,7 +7,7 @@ import GroupCreate from '../Create/GroupCreate';
 
 const { TabPane } = Tabs;
 
-const HomeTab = () => {
+const HomeTab = ({ onOpenRoutineCreate }) => {
   const [activeKey, setActiveKey] = useState('calming');
   const [panes, setPanes] = useState([
     {
@@ -186,155 +186,165 @@ const HomeTab = () => {
   };
 
   return (
-    <Tabs
-      type="line"
-      activeKey={activeKey}
-      onChange={onChange}
-      tabBarStyle={{ backgroundColor: '#ffffff', paddingLeft: '15px' }}
-      style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        borderRadius: '0px 0px 8px 0px',
-        backgroundColor: '#E9F3FF',
-      }}
-    >
-      {panes.map((pane) => (
-        <TabPane
-          tab={
-            <span
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: '14px',
-              }}
-              onDoubleClick={() => handleDoubleClick(pane.key)}
-            >
-              {editingKey === pane.key ? (
-                <Input
-                  value={pane.title}
-                  onChange={(e) => handleTitleChange(e, pane.key)}
-                  onBlur={handleBlur}
-                  autoFocus
-                  size="small"
-                  style={{ marginRight: '12px', width: '100px' }}
-                />
-              ) : (
-                pane.title
-              )}
-              <CloseOutlined
-                onClick={(e) => {
-                  e.stopPropagation();
-                  showDeleteConfirm(pane.key);
-                }}
-                style={{
-                  marginLeft: '12px',
-                  fontSize: '12px',
-                }}
-              />
-            </span>
-          }
-          key={pane.key}
-          closable={false}
-          style={{
-            backgroundColor: activeKey === pane.key ? '#E9F3FF' : '#ffffff',
-            flex: 1,
-            padding: '20px',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row', // 그룹을 가로로 배치
-              flexWrap: 'wrap', // 그룹이 화면을 넘으면 다음 줄로
-              gap: '20px', // 그룹 간 간격
-            }}
-          >
-            {pane.groups.map((group) => (
-              <div
-                key={group.key}
+    <div>
+      <Tabs
+        type="line"
+        activeKey={activeKey}
+        onChange={onChange}
+        tabBarStyle={{ backgroundColor: '#ffffff', paddingLeft: '15px' }}
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          borderRadius: '0px 0px 8px 0px',
+          backgroundColor: '#E9F3FF',
+        }}
+      >
+        {panes.map((pane) => (
+          <TabPane
+            tab={
+              <span
                 style={{
                   display: 'flex',
-                  flexDirection: 'column', // 카드가 세로로 배치되도록
-                  gap: '10px', // 카드 간 간격
-                  minWidth: '300px', // 최소 너비 설정
+                  alignItems: 'center',
+                  fontSize: '14px',
                 }}
+                onDoubleClick={() => handleDoubleClick(pane.key)}
               >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                >
-                  <h3>{group.title}</h3>
-                  <Button
-                    icon={<PlusOutlined />}
-                    onClick={() =>
-                      addCardToGroup(pane.key, group.key, {
-                        image: imageFile,
-                        date: '2024-08-03',
-                        details: '새 카드',
-                      })
-                    }
-                    style={{
-                      marginLeft: '10px',
-                      fontSize: '12px',
-                    }}
+                {editingKey === pane.key ? (
+                  <Input
+                    value={pane.title}
+                    onChange={(e) => handleTitleChange(e, pane.key)}
+                    onBlur={handleBlur}
+                    autoFocus
+                    size="small"
+                    style={{ marginRight: '12px', width: '100px' }}
                   />
-                </div>
+                ) : (
+                  pane.title
+                )}
+                <CloseOutlined
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    showDeleteConfirm(pane.key);
+                  }}
+                  style={{
+                    marginLeft: '12px',
+                    fontSize: '12px',
+                  }}
+                />
+              </span>
+            }
+            key={pane.key}
+            closable={false}
+            style={{
+              backgroundColor: activeKey === pane.key ? '#E9F3FF' : '#ffffff',
+              flex: 1,
+              padding: '20px',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row', // 그룹을 가로로 배치
+                flexWrap: 'wrap', // 그룹이 화면을 넘으면 다음 줄로
+                gap: '20px', // 그룹 간 간격
+              }}
+            >
+              {pane.groups.map((group) => (
                 <div
+                  key={group.key}
                   style={{
                     display: 'flex',
                     flexDirection: 'column', // 카드가 세로로 배치되도록
                     gap: '10px', // 카드 간 간격
+                    minWidth: '300px', // 최소 너비 설정
                   }}
                 >
-                  {group.cards.map((card, index) => (
-                    <TimelapseCard
-                      key={index}
-                      cardIndex={index}
-                      image={card.image}
-                      date={card.date}
-                      details={card.details}
-                      removeCardFromGroup={removeCardFromGroup} // 수정된 부분
-                      paneKey={pane.key}
-                      groupKey={group.key}
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <h3>{group.title}</h3>
+                    <Button
+                      icon={<PlusOutlined />}
+                      // onClick={() =>
+                      //   addCardToGroup(pane.key, group.key, {
+                      //     image: imageFile,
+                      //     date: '2024-08-03',
+                      //     details: '새 카드',
+                      //   })
+                      // }
+                      onClick={handleOpenRegister}
+                      style={{
+                        marginLeft: '10px',
+                        fontSize: '12px',
+                      }}
                     />
-                  ))}
+                    {openRegister && (
+                      <GroupCreate
+                        onCloseRegister={handleCloseRegister}
+                        onFinish={addGroup}
+                      />
+                    )}
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column', // 카드가 세로로 배치되도록
+                      gap: '10px', // 카드 간 간격
+                    }}
+                  >
+                    {group.cards.map((card, index) => (
+                      <TimelapseCard
+                        key={index}
+                        cardIndex={index}
+                        image={card.image}
+                        date={card.date}
+                        details={card.details}
+                        removeCardFromGroup={removeCardFromGroup} // 수정된 부분
+                        paneKey={pane.key}
+                        groupKey={group.key}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-            <Button
-              onClick={handleOpenRegister}
-              icon={<PlusOutlined />}
-              style={{ marginTop: '10px' }}
-            >
-              Add Group
-            </Button>
-            {openRegister && (
-              <GroupCreate
-                onCloseRegister={handleCloseRegister}
-                onFinish={addGroup}
-              />
-            )}
-          </div>
-        </TabPane>
-      ))}
+              ))}
+              <Button
+                icon={<PlusOutlined />}
+                onClick={onOpenRoutineCreate} // 루틴 생성 모드로 전환
+                style={{ marginTop: '10px' }}
+              >
+                Add Routine
+              </Button>
+            </div>
+          </TabPane>
+        ))}
 
-      <TabPane
-        tab={
-          <Button
-            icon={<PlusOutlined />}
-            onClick={add}
-            style={{ border: 'none', background: 'transparent' }}
-          />
-        }
-        key="add"
-        closable={false}
-        disabled={false} // 추가 버튼 활성화
-      />
-    </Tabs>
+        <TabPane
+          tab={
+            <Button
+              icon={<PlusOutlined />}
+              onClick={add}
+              style={{ border: 'none', background: 'transparent' }}
+            />
+          }
+          key="add"
+          closable={false}
+          disabled={false} // 추가 버튼 활성화
+        />
+      </Tabs>
+
+      {openRegister && (
+        <GroupCreate
+          onCloseRegister={handleCloseRegister}
+          onFinish={addGroup}
+        />
+      )}
+    </div>
   );
 };
 
