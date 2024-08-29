@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Input, Upload, DatePicker, Divider, Space } from 'antd';
 import AtomicPopup from '../../../components/AtomicPopup';
-
 import { PlusOutlined } from '@ant-design/icons';
 
 const ProductRegister = (props) => {
