@@ -2,27 +2,34 @@ import React, { useState } from 'react';
 import MainLayout from '../layouts/MainLayout';
 import HomeTab from './../routes/Home/Tabs/index';
 import InventoryTab from './../routes/Inventory/Tabs/index';
-import RoutineCreation from './../routes/Home/Create/RoutineCreation'; // Import RoutineCreation
+import RoutineCreation from './../routes/Home/Create/RoutineCreation';
 
-const Home = () => {
+const Home = ({ user }) => {
+  // user prop 받아오기
   const [selectedMenu, setSelectedMenu] = useState('home');
   const [isCreatingRoutine, setIsCreatingRoutine] = useState(false);
 
   const handleOpenRoutineCreation = () => {
-    setIsCreatingRoutine(true); // 루틴 생성 모드로 전환
+    setIsCreatingRoutine(true);
   };
 
   const handleCloseRoutineCreation = () => {
-    setIsCreatingRoutine(false); // 루틴 생성 완료 시 원래 화면으로 돌아가기
+    setIsCreatingRoutine(false);
   };
 
   const handleMenuSelect = (e) => {
     setSelectedMenu(e.key);
-    setIsCreatingRoutine(false); // 메뉴 변경 시 루틴 생성 모드 종료
+    setIsCreatingRoutine(false);
   };
 
   return (
-    <MainLayout selectedMenu={selectedMenu} onMenuSelect={handleMenuSelect}>
+    <MainLayout
+      selectedMenu={selectedMenu}
+      onMenuSelect={handleMenuSelect}
+      style={{
+        backgroundColor: '#E9F3FF',
+      }}
+    >
       {selectedMenu === 'home' ? (
         !isCreatingRoutine ? (
           <>
@@ -33,7 +40,8 @@ const Home = () => {
                 borderRadius: '8px',
               }}
             >
-              <h1>Home</h1>
+              <h1>Hi {user ? user.displayName : 'User'}! </h1>
+              {/* 사용자 이름 표시 */}
             </div>
             <HomeTab onOpenRoutineCreate={handleOpenRoutineCreation} />
           </>
@@ -49,7 +57,7 @@ const Home = () => {
               borderRadius: '8px',
             }}
           >
-            <h1>Hi Lina! 2024</h1>
+            <h1>Inventory</h1>
           </div>
           <InventoryTab />
         </>

@@ -7,11 +7,12 @@ import webLightRdCtnImg from '../assets/web_light_rd_ctn@1x.png'; // 이미지 �
 
 const Login = () => {
   const navigate = useNavigate();
+
   const handleLogin = async () => {
     try {
       const data = await signInWithPopup(auth, googleProvider);
       console.log(data.user); // 로그인 성공 시 사용자 정보
-      navigate('/home');
+      navigate('/');
     } catch (erroor) {
       console.error(error); // 오류 처리
     }

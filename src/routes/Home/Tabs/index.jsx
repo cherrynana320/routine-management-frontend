@@ -186,7 +186,13 @@ const HomeTab = ({ onOpenRoutineCreate }) => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%', // 부모 요소의 전체 높이를 차지하도록 설정
+      }}
+    >
       <Tabs
         type="line"
         activeKey={activeKey}
@@ -241,6 +247,7 @@ const HomeTab = ({ onOpenRoutineCreate }) => {
               backgroundColor: activeKey === pane.key ? '#E9F3FF' : '#ffffff',
               flex: 1,
               padding: '20px',
+              overflowY: 'auto', // 콘텐츠가 많을 때 스크롤이 생기도록 설정
             }}
           >
             <div
@@ -249,6 +256,7 @@ const HomeTab = ({ onOpenRoutineCreate }) => {
                 flexDirection: 'row', // 그룹을 가로로 배치
                 flexWrap: 'wrap', // 그룹이 화면을 넘으면 다음 줄로
                 gap: '20px', // 그룹 간 간격
+                height: '100%',
               }}
             >
               {pane.groups.map((group) => (
@@ -271,13 +279,6 @@ const HomeTab = ({ onOpenRoutineCreate }) => {
                     <h3>{group.title}</h3>
                     <Button
                       icon={<PlusOutlined />}
-                      // onClick={() =>
-                      //   addCardToGroup(pane.key, group.key, {
-                      //     image: imageFile,
-                      //     date: '2024-08-03',
-                      //     details: '새 카드',
-                      //   })
-                      // }
                       onClick={handleOpenRegister}
                       style={{
                         marginLeft: '10px',
@@ -291,26 +292,19 @@ const HomeTab = ({ onOpenRoutineCreate }) => {
                       />
                     )}
                   </div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column', // 카드가 세로로 배치되도록
-                      gap: '10px', // 카드 간 간격
-                    }}
-                  >
-                    {group.cards.map((card, index) => (
-                      <TimelapseCard
-                        key={index}
-                        cardIndex={index}
-                        image={card.image}
-                        date={card.date}
-                        details={card.details}
-                        removeCardFromGroup={removeCardFromGroup} // 수정된 부분
-                        paneKey={pane.key}
-                        groupKey={group.key}
-                      />
-                    ))}
-                  </div>
+
+                  {group.cards.map((card, index) => (
+                    <TimelapseCard
+                      key={index}
+                      cardIndex={index}
+                      image={card.image}
+                      date={card.date}
+                      details={card.details}
+                      removeCardFromGroup={removeCardFromGroup} // 수정된 부분
+                      paneKey={pane.key}
+                      groupKey={group.key}
+                    />
+                  ))}
                 </div>
               ))}
               <Button
