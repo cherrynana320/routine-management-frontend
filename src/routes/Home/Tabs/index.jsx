@@ -49,9 +49,9 @@ const HomeTab = ({ onOpenRoutineCreate }) => {
       ],
     },
   ]);
-
   const [editingKey, setEditingKey] = useState('');
   const [openRegister, setOpenRegister] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
 
   const onChange = (key) => {
     if (key !== 'add') {
@@ -103,6 +103,14 @@ const HomeTab = ({ onOpenRoutineCreate }) => {
 
   const handleCloseRegister = () => {
     setOpenRegister(false);
+  };
+
+  const handleOpenDetail = () => {
+    setOpenDetail(true);
+  };
+
+  const handleCloseDetail = () => {
+    setOpenDetail(false);
   };
 
   const handleDoubleClick = (key) => {

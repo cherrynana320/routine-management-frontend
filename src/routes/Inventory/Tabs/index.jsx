@@ -11,24 +11,36 @@ const { TabPane } = Tabs;
 const items = {
   calming: [
     {
+      id: 1, // id 필드를 추가합니다.
       brand: 'Torriden',
       name: '다이브인 저분자 히알루론산 세럼',
       image: imageFile,
+      expiration: '2024.09.04',
+      description: '설명1',
     },
     {
+      id: 2,
       brand: 'Torriden',
       name: '다이브인 저분자 히알루론산 세럼',
       image: imageFile,
+      expiration: '2024.09.04',
+      description: '설명2',
     },
     {
+      id: 3,
       brand: 'Torriden',
       name: '다이브인 저분자 히알루론산 세럼',
       image: imageFile,
+      expiration: '2024.09.04',
+      description: '설명3',
     },
     {
+      id: 4,
       brand: 'Torriden',
       name: '다이브인 저분자 히알루론산 세럼',
       image: imageFile,
+      expiration: '2024.09.04',
+      description: '설명4',
     },
     // 추가 아이템들
   ],
@@ -45,9 +57,10 @@ const InventoryTab = () => {
     { title: 'device', key: 'device' },
   ]);
 
-  // 편집 중인 탭의 key를 저장하는 상태
   const [editingKey, setEditingKey] = useState('');
   const [openRegister, setOpenRegister] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null); // 선택된 아이템을 저장할 상태
 
   const onChange = (key) => {
     if (key !== 'add') {
@@ -99,6 +112,14 @@ const InventoryTab = () => {
 
   const handleCloseRegister = () => {
     setOpenRegister(false);
+  };
+
+  const handleOpenDetail = (item) => {
+    setOpenDetail(true);
+  };
+
+  const handleCloseDetail = () => {
+    setOpenDetail(false);
   };
 
   const handleDoubleClick = (key) => {
@@ -177,8 +198,8 @@ const InventoryTab = () => {
           <div
             style={{
               display: 'flex',
-              justifyContent: 'flex-end', // SearchBox를 오른쪽 끝으로 배치
-              marginBottom: '20px', // SearchBox 아래에 여백 추가
+              justifyContent: 'flex-end',
+              marginBottom: '20px',
               marginRight: '20px',
             }}
           >
@@ -198,9 +219,15 @@ const InventoryTab = () => {
                 image={item.image}
                 brand={item.brand}
                 name={item.name}
-                onAddClick={() => console.log(`${item.name}`)}
+                onClick={handleOpenDetail} // 아이템 클릭 시 상세 보기 모드로
               />
             ))}
+            {openDetail && (
+              <ProductRegister
+                onCloseRegister={handleCloseDetail}
+                currentMode="detail"
+              />
+            )}
 
             <Card
               style={{

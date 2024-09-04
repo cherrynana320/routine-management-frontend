@@ -2,10 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Input, Upload, DatePicker, Divider, Space } from 'antd';
 import AtomicPopup from '../../../components/AtomicPopup';
 import { PlusOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
-const ProductRegister = (props) => {
+const ProductRegister = ({
+  onCloseRegister,
+  initialData = {},
+  currentMode,
+}) => {
   const [form] = Form.useForm();
   const [focus, setFocus] = useState(false);
+  const [fileList, setFileList] = useState([]);
+  const [isModifyMode, setIsModifyMode] = useState([]);
+  const [mode, setMode] = useState();
+
+  // 폼 초기화
+  useEffect(() => {
+    setMode(currentMode);
+    if (mode === 'detail' || mode === 'modify') {
+      form.setFieldsValue({
+        productName: initialData.productName,
+        expirationDate: initialData.expirationDate
+          ? moment(initialData.expirationDate)
+          : null,
+        description: initialData.description,
+      });
+      if (initialData.productImage) {
+        setFileList([
+          {
+            uid: '-1',
+            name: 'image.png',
+            status: 'done',
+            url: initialData.productImage,
+          },
+        ]);
+      }
+    }
+  }, [form, initialData, mode]);
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -14,61 +46,16 @@ const ProductRegister = (props) => {
     return e?.fileList;
   };
 
-  const { TextArea } = Input; //Input.TextArea
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-    validationMessage(errorInfo, () => {});
-  };
-
-  useEffect(() => {}, [focus]);
-
   const onFinishRegister = async () => {
     const values = form.getFieldsValue(true);
     const req = Object.assign({}, values);
-    console.log('values :', values);
+    console.log('Form Values:', values);
 
-    const orgFileList = fileList.filter((file) => file.id); // 기존에 존재하던 파일
-    const newFileList = fileList.filter((file) => !file.id); // 새로 추가된 파일
+    // 데이터 저장 로직을 여기서 구현
+    console.log('Request Payload:', req);
 
-    try {
-      const retVals = await uploadFiles(newFileList); //uploadFiles로 새로운 파일들 업로드 한 뒤 retVals에 저장
-      req.attached_files = [
-        ...orgFileList.map((retVal) => ({ id: retVal.id })),
-        ...retVals.map((retVal) => ({ id: retVal.id })),
-      ]; // 기존파일 + 새 파일
-
-      console.log('req :', req);
-
-      repositoryApis
-        .createRepository(req)
-        .then((resp) => {
-          console.log(resp);
-          infoMessage('등록이 완료되었습니다.', () => {
-            onCloseRegister();
-            Router.reload();
-          });
-        })
-        .catch((e) => console.log(e));
-    } catch (e) {
-      console.log('e : ', e);
-    }
+    onCloseRegister();
   };
-
-  useEffect(() => {
-    setFocus(true);
-    return () => {
-      setFocus(false);
-    };
-  }, []);
-
-  const confirmPopup = () => {
-    confirmMessage2('등록하시겠습니까?', () => {
-      onFinishRegister();
-    });
-  };
-
-  const [fileList, setFileList] = useState([]);
 
   const handleChange = ({ fileList }) => {
     setFileList(fileList);
@@ -80,13 +67,8 @@ const ProductRegister = (props) => {
 
   return (
     <>
-      <AtomicPopup
-        onCancel={() => {
-          props.onCloseRegister(); // 팝업 취소 시 닫기;
-        }}
-        footer={null}
-      >
-        <Form layout="vertical">
+      <AtomicPopup onCancel={onCloseRegister} footer={null}>
+        <Form layout="vertical" form={form} onFinish={onFinishRegister}>
           <Divider />
           <Space
             direction="horizontal"
@@ -97,14 +79,30 @@ const ProductRegister = (props) => {
             }}
           >
             <Form.Item style={{ margin: 0 }}>
-              <Input
-                placeholder="Product Name"
-                style={{ height: '40px', width: '400px' }}
-              />
+              {mode === 'detail' ? (
+                <span>{initialData.productName || 'N/A'}</span>
+              ) : (
+                <Form.Item name="productName" style={{ margin: 0 }}>
+                  <Input
+                    placeholder="Product Name"
+                    style={{ height: '40px', width: '400px' }}
+                    disabled={mode === 'detail' ? true : false}
+                  />
+                </Form.Item>
+              )}
             </Form.Item>
-            <Button type="primary" style={{ height: '40px', width: '80px' }}>
-              Save
-            </Button>
+            {mode === 'detail' ? (
+              <Button
+                type="primary"
+                onClick={() => {
+                  setIsModifyMode(true);
+                }}
+              >
+                Modify
+              </Button>
+            ) : (
+              <Button type="primary">Save</Button>
+            )}
           </Space>
           <Divider />
           <Form.Item
@@ -113,31 +111,58 @@ const ProductRegister = (props) => {
             getValueFromEvent={normFile}
             style={{ width: '50%' }}
           >
-            <Upload
-              action="/upload.do"
-              listType="picture-card"
-              fileList={fileList}
-              maxCount={1}
-              onChange={handleChange}
-              onRemove={handleRemove}
-            >
-              {fileList.length === 0 && (
-                <Button
-                  style={{
-                    border: 0,
-                    background: 'none',
-                  }}
-                >
-                  <PlusOutlined />
-                </Button>
-              )}
-            </Upload>
+            {mode === 'detail' ? (
+              initialData.productImage ? (
+                <img
+                  src={initialData.productImage}
+                  alt="Product"
+                  style={{ width: '100%', maxHeight: '200px' }}
+                />
+              ) : (
+                'No image available'
+              )
+            ) : (
+              <Upload
+                listType="picture-card"
+                fileList={fileList}
+                maxCount={1}
+                onChange={handleChange}
+                onRemove={handleRemove}
+              >
+                {fileList.length === 0 && (
+                  <Button
+                    style={{
+                      border: 0,
+                      background: 'none',
+                    }}
+                  >
+                    <PlusOutlined />
+                  </Button>
+                )}
+              </Upload>
+            )}
           </Form.Item>
-          <Form.Item label="Expiration Date" style={{ width: '50%' }}>
-            <DatePicker />
+          <Form.Item
+            label="Expiration Date"
+            style={{ width: '50%' }}
+            name="expirationDate"
+          >
+            {mode === 'detail' ? (
+              <span>
+                {initialData.expirationDate
+                  ? moment(initialData.expirationDate).format('YYYY-MM-DD')
+                  : 'N/A'}
+              </span>
+            ) : (
+              <DatePicker style={{ width: '100%' }} />
+            )}
           </Form.Item>
-          <Form.Item label="Description">
-            <TextArea rows={4} />
+          <Form.Item label="Description" name="description">
+            {mode === 'detail' ? (
+              <span>{initialData.description || 'N/A'}</span>
+            ) : (
+              <Input.TextArea rows={4} />
+            )}
           </Form.Item>
         </Form>
       </AtomicPopup>

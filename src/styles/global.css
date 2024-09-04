@@ -4,6 +4,10 @@
   src: url('/src/assets/fonts/NotoSansKR-Medium.ttf') format('truetype');
 }
 
+body {
+  margin: 0;
+}
+
 h1,
 h2,
 h3,
